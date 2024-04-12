@@ -19,10 +19,11 @@ export default function SignUp() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
+        toast.success("User created successfully");
       })
       .catch((error) => {
         console.log(error);
-        //toast.error(error.message);
+        toast.error(error.message);
       });
   };
 
