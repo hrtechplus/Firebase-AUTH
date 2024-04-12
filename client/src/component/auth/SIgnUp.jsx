@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { auth } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-
+import toast, { Toaster } from "react-hot-toast";
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,6 +22,7 @@ export default function SignUp() {
       })
       .catch((error) => {
         console.log(error);
+        //toast.error(error.message);
       });
   };
 
