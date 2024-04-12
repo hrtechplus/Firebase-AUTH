@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-
+import toast, { Toaster } from "react-hot-toast";
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,9 +12,12 @@ export default function SignIn() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
+        toast.success("User signed in successfully");
+        toast.success("hello " + userCredential.user.email);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
+        toast.error(error.message);
       });
   };
 
