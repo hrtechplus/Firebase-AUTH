@@ -27,12 +27,13 @@ export default function SignUp() {
 
   return (
     <div>
+      <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Email:
           <input type="email" value={email} onChange={handleEmailChange} />
         </label>
-        <br />
+
         <label>
           Password:
           <input
@@ -41,7 +42,7 @@ export default function SignUp() {
             onChange={handlePasswordChange}
           />
         </label>
-        <br />
+
         <button type="submit">Sign Up</button>
       </form>
     </div>
