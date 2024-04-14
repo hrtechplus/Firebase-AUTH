@@ -1,9 +1,15 @@
 import React from "react";
-import { auth, provider, signInWithPopup, GoogleAuthProvider } from "./config";
+import {
+  auth,
+  provider,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signInWithRedirect,
+} from "./config";
 
 export default function TestAuth() {
   const handleGoogleSignup = () => {
-    signInWithPopup(auth, provider)
+    signInWithRedirect(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
