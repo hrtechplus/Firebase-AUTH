@@ -18,14 +18,18 @@ export default function SignUp() {
 
   //signUpGoogle
 
-  // my vcoded
-  const handleGoogleSignIn = async () => {
-    const { googleSignIn } = UserAuth();
-    try {
-      await googleSignIn();
-    } catch (error) {
-      toast.error("Sign in failed");
-    }
+  // my vcode
+
+  const SignWithGoogle = (e) => {
+    e.preventDefault();
+    const handleGoogleSignIn = async () => {
+      const { googleSignIn } = UserAuth();
+      try {
+        await googleSignIn();
+      } catch (error) {
+        toast.error("Sign in failed");
+      }
+    };
   };
 
   const handleSubmit = (e) => {
@@ -61,7 +65,7 @@ export default function SignUp() {
         </label>
 
         <button type="submit">Sign Up</button>
-        <button type="submit" onClick={handleGoogleSignIn}>
+        <button type="submit" onClick={SignWithGoogle}>
           Sign Up With google
         </button>
       </form>
