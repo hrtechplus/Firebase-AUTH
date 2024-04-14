@@ -1,5 +1,5 @@
 import React from "react";
-import { auth, provider, signInWithPopup } from "./config";
+import { auth, provider, signInWithPopup, GoogleAuthProvider } from "./config";
 
 export default function TestAuth() {
   const handleGoogleSignup = () => {
