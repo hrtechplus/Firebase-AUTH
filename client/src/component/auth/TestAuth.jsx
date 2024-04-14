@@ -5,11 +5,30 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signInWithRedirect,
+  signOut,
 } from "./config";
 
 export default function TestAuth() {
+  /// sign OUT ///
+  const performSignOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+
+  // Call the performSignOut function
+  const signOut = () => {
+    alert("Sign out");
+    performSignOut();
+  };
+  ////SIGN OUT  ///
   const handleGoogleSignup = () => {
-    signInWithRedirect(auth, provider)
+    signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -34,6 +53,7 @@ export default function TestAuth() {
   return (
     <div>
       <button onClick={handleGoogleSignup}>Sign up with Google</button>
+      <button onClick={signOut}>Sign Out</button>
     </div>
   );
 }
