@@ -1,20 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import toast, { Toaster } from "react-hot-toast";
 
 // firebase auth files
 
 import { auth, provider } from "../../firebase";
-import { signInWithPopup, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  reload,
+  signOut,
+} from "firebase/auth";
+import UserDetails from "./UserDetails";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const accessToken = sessionStorage.getItem("accessToken");
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
 
+  const signOut = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+  useEffect(() => {
+    // Code to handle accessToken changes
+  }, [accessToken]);
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
@@ -28,6 +47,8 @@ export default function SignUp() {
         const user = result.user;
         console.log(user);
         setValues(user);
+        accessToken = sessionStorage.setItem("accessToken", user.accessToken);
+
         toast.success("User created successfully");
       })
       .catch((error) => {
@@ -73,6 +94,15 @@ export default function SignUp() {
       <button type="submit" onClick={handleGoogle}>
         Sign Up With google
       </button>
+
+      {accessToken ? (
+        <UserDetails
+          displayName={value.displayName}
+          email={value.email}
+          profilePhoto={value.photoURL}
+          click={signOut}
+        />
+      ) : null}
     </div>
   );
 }
