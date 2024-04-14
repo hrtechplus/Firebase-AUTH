@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { auth } from "../../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+
 import toast, { Toaster } from "react-hot-toast";
+
+// firebase auth files
+
+import { auth, provider } from "../../firebase";
+import { signInWithPopup, createUserWithEmailAndPassword } from "firebase/auth";
 
 import { UserAuth } from "../../context/AuthContext";
 export default function SignUp() {
@@ -16,20 +20,19 @@ export default function SignUp() {
     setPassword(e.target.value);
   };
 
-  //signUpGoogle
+  // my Google sign in code
 
-  // my vcode
-
-  const SignWithGoogle = (e) => {
-    e.preventDefault();
-    const handleGoogleSignIn = async () => {
-      const { googleSignIn } = UserAuth();
-      try {
-        await googleSignIn();
-      } catch (error) {
-        toast.error("Sign in failed");
-      }
-    };
+  const [value, setValues] = useState("");
+  const handleGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        setValues(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleSubmit = (e) => {
@@ -65,10 +68,11 @@ export default function SignUp() {
         </label>
 
         <button type="submit">Sign Up</button>
-        <button type="submit" onClick={SignWithGoogle}>
-          Sign Up With google
-        </button>
       </form>
+      {/* sign with google button */}
+      <button type="submit" onClick={handleGoogle}>
+        Sign Up With google
+      </button>
     </div>
   );
 }
