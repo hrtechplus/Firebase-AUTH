@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { auth } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import toast, { Toaster } from "react-hot-toast";
+
+import { UserAuth } from "../../context/AuthContext";
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,8 +16,21 @@ export default function SignUp() {
     setPassword(e.target.value);
   };
 
+  //signUpGoogle
+
+  // my vcoded
+  const handleGoogleSignIn = async () => {
+    const { googleSignIn } = UserAuth();
+    try {
+      await googleSignIn();
+    } catch (error) {
+      toast.error("Sign in failed");
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    alert("Sign Up");
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
@@ -46,6 +61,9 @@ export default function SignUp() {
         </label>
 
         <button type="submit">Sign Up</button>
+        <button type="submit" onClick={handleGoogleSignIn}>
+          Sign Up With google
+        </button>
       </form>
     </div>
   );
