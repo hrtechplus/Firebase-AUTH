@@ -7,7 +7,6 @@ import toast, { Toaster } from "react-hot-toast";
 import { auth, provider } from "../../firebase";
 import { signInWithPopup, createUserWithEmailAndPassword } from "firebase/auth";
 
-import { UserAuth } from "../../context/AuthContext";
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,6 +28,7 @@ export default function SignUp() {
         const user = result.user;
         console.log(user);
         setValues(user);
+        toast.success("User created successfully");
       })
       .catch((error) => {
         console.log(error);
